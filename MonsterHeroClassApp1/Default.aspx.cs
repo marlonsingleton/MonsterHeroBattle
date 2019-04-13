@@ -13,12 +13,11 @@ namespace MonsterHeroClassApp1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Random rand = new Random();
             Character hero = new Character();
             Character monster = new Character();
+            monster.Name = "Monster";
             Dice dice = new Dice();
 
-            createHeroandMonster(hero, monster, rand);
             gameLoop(hero, monster, dice);
         }
 
@@ -81,23 +80,13 @@ namespace MonsterHeroClassApp1
             testLabel.Text += result;
         }
 
-        private void createHeroandMonster(Character hero, Character monster, Random rand)
-        {
-            hero.Name = "Hero";
-            hero.Health = 100;
-            hero.DamageMaximum = 30;
-            hero.AttackBonus = (rand.Next(1, 5) % 2 == 0) ? true : false;
-            monster.Name = "Monster";
-            monster.Health = 100;
-            monster.DamageMaximum = 40;
-            monster.AttackBonus = !(rand.Next(2, 6) % 2 == 0) ? true : false;
-        }
-
         private void bonusAttacks(Character hero, Character monster, Dice dice)
         {
+            hero.Bonus();
             if (hero.AttackBonus)
                 heroBonus(hero, monster, dice);
 
+            monster.Bonus();
             if (monster.AttackBonus)
                 monsterBonus(hero, monster, dice);
         }
@@ -120,12 +109,12 @@ namespace MonsterHeroClassApp1
 
         class Character
         {
-            Random bonus = new Random();
-            public string Name { get; set; }
-            public int Health { get; set; }
-            public int DamageMaximum { get; set; }
+
+            public string Name = "Hero";
+            public int Health { get; set; } = 100;
+            public int DamageMaximum { get; set; } = 30;
             public bool AttackBonus { get; set; }
-            
+
             public int Attack(Dice dice)
             {
                 dice.sides = this.DamageMaximum;
@@ -135,6 +124,14 @@ namespace MonsterHeroClassApp1
             public void Defend(int damage)
             {
                 this.Health -= damage;
+            }
+
+            public void Bonus()
+            {
+                Random bonus = new Random();
+                Thread.Sleep(1000);
+                int num = bonus.Next(0, 2);
+                this.AttackBonus = (num == 1) ? true : false;
             }
         }
 
