@@ -128,8 +128,8 @@ namespace MonsterHeroClassApp1
 
             public void Bonus()
             {
+                Thread.Sleep(1000); //ensure time is different for random seeding
                 Random bonus = new Random();
-                Thread.Sleep(1000);
                 int num = bonus.Next(0, 2);
                 this.AttackBonus = (num == 1) ? true : false;
             }
