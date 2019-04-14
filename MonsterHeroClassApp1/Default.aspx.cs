@@ -111,8 +111,8 @@ namespace MonsterHeroClassApp1
         class Character
         {
             public string Name = "Hero";
-            public int Health { get; set; } = 100;
-            public int DamageMaximum { get; set; } = 30;
+            public int Health = 100;
+            public int DamageMaximum = 30;
             public bool AttackBonus { get; set; }
 
             public int Attack(Dice dice)
@@ -143,10 +143,6 @@ namespace MonsterHeroClassApp1
             {
                 return random.Next(1, this.sides);
             }
-        }
-
-        protected void battleButton_Click(object sender, EventArgs e)
-        {
         }
     }
 }
