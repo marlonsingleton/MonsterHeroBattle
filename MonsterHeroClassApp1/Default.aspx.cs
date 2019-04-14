@@ -34,13 +34,18 @@ namespace MonsterHeroClassApp1
         private bool StartBattle(Character hero, Character monster, Dice dice, int count)
         {
             if (count == 0) bonusAttacks(hero, monster, dice); //determine bonus only once
-            monstersAttack(hero, monster, dice);
+            if (battleFlow(hero, monster, dice) == false) return false; //ends loop
+            return true;
+        }
 
-            if (gameOver(hero, monster)) return false; //StartBattle is false when Game is Over
+        private bool battleFlow(Character hero, Character monster, Dice dice)
+        {
+            monstersAttack(hero, monster, dice);
+            if (gameOver(hero, monster)) return false; //battleFlow is false when Game is Over
             herosAttack(hero, monster, dice);
 
             Display(hero, monster);
-            if (gameOver(hero, monster)) return false;
+            if (gameOver(hero, monster)) return false; //battleFlow is false when Game is Over
             return true;
         }
 
@@ -65,8 +70,7 @@ namespace MonsterHeroClassApp1
                 else testLabel.Text += "The Monster delivered a fatal blow and wins!";
                 return true;
             }
-            else
-                return false;
+            else return false;
         }
 
         private void Display(Character hero, Character Monster)
