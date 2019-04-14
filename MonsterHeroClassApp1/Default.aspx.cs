@@ -42,10 +42,10 @@ namespace MonsterHeroClassApp1
         {
             monstersAttack(hero, monster, dice);
             if (gameOver(hero, monster)) return false; //battleFlow is false when Game is Over
-            herosAttack(hero, monster, dice);
 
-            Display(hero, monster);
+            herosAttack(hero, monster, dice);
             if (gameOver(hero, monster)) return false; //battleFlow is false when Game is Over
+
             return true;
         }
 
@@ -53,6 +53,7 @@ namespace MonsterHeroClassApp1
         {
             int damage = monster.Attack(dice);
             hero.Defend(damage);
+            Display(hero, monster);
         }
 
         private void herosAttack(Character hero, Character monster, Dice dice)
