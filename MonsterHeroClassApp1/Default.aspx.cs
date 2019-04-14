@@ -17,7 +17,6 @@ namespace MonsterHeroClassApp1
             Character monster = new Character();
             monster.Name = "Monster";
             Dice dice = new Dice();
-
             gameLoop(hero, monster, dice);
         }
 
@@ -28,22 +27,20 @@ namespace MonsterHeroClassApp1
             {
                 if (StartBattle(hero, monster, dice, count) == false) break;
                 count += 1;
-                bool status = gameOver(hero, monster);
-                if (status == true) break;
+                if (gameOver(hero, monster)) break;
             } while (hero.Health > 0 && monster.Health > 0);
         }
 
         private bool StartBattle(Character hero, Character monster, Dice dice, int count)
         {
-            //determine bonus only once
-            if (count == 0) bonusAttacks(hero, monster, dice);
+            if (count == 0) bonusAttacks(hero, monster, dice); //determine bonus only once
             monstersAttack(hero, monster, dice);
 
-            if (gameOver(hero, monster) == true) return false;
+            if (gameOver(hero, monster)) return false; //StartBattle is false when Game is Over
             herosAttack(hero, monster, dice);
 
             Display(hero, monster);
-            if (gameOver(hero, monster) == true) return false;
+            if (gameOver(hero, monster)) return false;
             return true;
         }
 
@@ -64,8 +61,7 @@ namespace MonsterHeroClassApp1
             if (hero.Health <= 0 || monster.Health <= 0)
             {
                 testLabel.Text += "Game Over<br />";
-                if (hero.Health > 0)
-                    testLabel.Text += "The Hero delivered a fatal blow and wins!";
+                if (hero.Health > 0) testLabel.Text += "The Hero delivered a fatal blow and wins!";
                 else testLabel.Text += "The Monster delivered a fatal blow and wins!";
                 return true;
             }
@@ -109,7 +105,6 @@ namespace MonsterHeroClassApp1
 
         class Character
         {
-
             public string Name = "Hero";
             public int Health { get; set; } = 100;
             public int DamageMaximum { get; set; } = 30;
@@ -138,9 +133,7 @@ namespace MonsterHeroClassApp1
         class Dice
         {
             public int sides { get; set; }
-
             Random random = new Random();
-
             public int Roll()
             {
                 return random.Next(1, this.sides);
